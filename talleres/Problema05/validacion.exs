@@ -9,26 +9,49 @@ defmodule Validacion do
       |> Util.ingresar(:entero)
 
     validacion_credenciales =
-      "tiene credenciales si/no"
+      "ingrese credenciales "
       |> Util.ingresar(:texto)
 
-    
+    validacion_intentos =
+      "ingrese numero intentos fallidos"
+      |> Util.ingresar(:entero)
 
-    defp validardatos(validacion_nombre,validacion_edad,validacion,credenciales) do
+    validacion =
+      validardatos(
+        validacion_nombre,
+        validacion_edad,
+        validacion_credenciales,
+        validacion_intentos
+      )
 
-      if validacion_nombre == validacion_nombre  do
+    mostrar_resultado(validacion)
+  end
 
-        if validacion_edad >= 18 do
-
-          if validacion_credenciales == "si" do
-            {:ok, "Acceso concedido"}
-
-          else
-            {:error,"datos invalidos"}
-          end
-        end
+  defp validardatos(
+         validacion_nombre,
+         validacion_edad,
+         validacion,
+         credenciales,
+         validacion_intentos
+       ) do
+    unless validacion_credenciales do
+      {:error, "acceso denegado #{validacion_nombre}"}
+    else
+      if edad < 18 do
+        {:error, " su edad debe ser mayor a 18"}
       end
     end
+  end
+
+  |>Util.mostrar_mensaje()
+
+  def mostrar_resultado(resultado) do
+    {:ok, mensaje} = resultado
+      IO.puts (mensaje)
+  end
+
+  def mostrar_resultado({:error, mensaje} ) do
+      IO.puts (mensaje)
   end
 end
 
