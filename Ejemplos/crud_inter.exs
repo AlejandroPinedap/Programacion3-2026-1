@@ -36,7 +36,7 @@ defmodule Usuarios do
   end
 
   # UPDATE
-  def actualizar(lista, id, nuevo_nombre, nueva_edad) do
+  def actualizar(lista, id, nuevo_nombre, nueva_edad) do 
     Enum.map(lista, fn
       %Usuario{id: ^id} = usuario ->
         %Usuario{usuario | nombre: nuevo_nombre, edad: nueva_edad}
