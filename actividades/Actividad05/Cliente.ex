@@ -52,7 +52,7 @@ defmodule Cliente do
 
   def escribir_csv(clientes, nombre) do
     encabezado =
-      if File.exists?(nombre), do: "", else: "\nnombre, edad, altura\n"
+      if File.exists?(nombre), do: "", else: "nombre, edad, altura\n"
 
     clientes
     |> generar_mensaje_clientes(&convertir_cliente_linea_csv/1)
@@ -61,16 +61,20 @@ defmodule Cliente do
   end
 
   def leer_csv(nombre) do
-    nombre
-    |> File.stream!()
-    # ignora los encabezados
-    |> Stream.drop(1)
-    |> Enum.map(&convertir_cadena_cliente/1)
+    if File.exists?(nombre) do
+      nombre
+      |> File.stream!()
+      |> Stream.drop(1)
+      |> Enum.map(&convertir_cadena_cliente/1)
+    else
+      []
+    end
   end
 
   defp convertir_cadena_cliente(cadena) do
     [nombre, edad, altura] =
       cadena
+      |> String.replace(" - ", "")
       |> String.split(",")
       |> Enum.map(&String.trim/1)
 
@@ -80,7 +84,7 @@ defmodule Cliente do
   end
 
   defp convertir_cliente_linea_csv(cliente) do
-    "\n - #{cliente.nombre}, #{cliente.edad}, #{cliente.altura} "
+    " - #{cliente.nombre}, #{cliente.edad}, #{cliente.altura}\n"
   end
 
   def generar_mensaje_clientes(lista_clientes, parser) do
