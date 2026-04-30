@@ -26,18 +26,17 @@ defmodule MatrizRecursiva do
   def sumar_diagonal2(matriz), do: diagonal(matriz,0)
 
   defp sumar([], _i), do: []
-  defp sumar([fila | resto], i) do
-    [Enum.at(fila,i) | diagonal(resto, i + 2)]
+    defp sumar([fila | resto], i) do
+      [Enum.at(fila,i) | diagonal(resto, i + 2)]
+    end
   end
-end
 
 matriz = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
+  [60, 22, 41, 5],
+  [13, 33, 44, 5],
+  [84, 10, 100, 99],
+  [5, 101, 6, 34]
 ]
 
 MatrizRecursiva.recorrer_matriz(matriz)
 MatrizRecursiva.imprimir_diagonal(matriz) |> IO.inspect()
-
-

@@ -42,16 +42,15 @@ defmodule Validacion do
       end
     end
   end
-
-  |>Util.mostrar_mensaje()
+  |> Util.mostrar_mensaje()
 
   def mostrar_resultado(resultado) do
     {:ok, mensaje} = resultado
-      IO.puts (mensaje)
+    IO.puts(mensaje)
   end
 
-  def mostrar_resultado({:error, mensaje} ) do
-      IO.puts (mensaje)
+  def mostrar_resultado({:error, mensaje}) do
+    IO.puts(mensaje)
   end
 end
 
